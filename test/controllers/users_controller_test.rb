@@ -10,6 +10,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     User.stub(:find, @mock) do
       get user_path(id: 1, format: :hal_json)
+      assert_equal "application/hal+json", response.headers["Content-Type"]
       json = JSON.parse(response.body)
       assert_equal "test world", json["hello"]
     end
